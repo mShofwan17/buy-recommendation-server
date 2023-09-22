@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 data class DataTraining(
     val nama: String = "Barang",
     val kategori: String,
+    val harga: String,
     val persediaan: String,
     val isPromosi: Boolean,
     val isMemenuhiTarget: Boolean? = null,

@@ -15,10 +15,11 @@ object NaiveBayesUtil {
             val positive = allTrueCount().toDouble()
 
             val kategori = dataUji.getKategori(dataTrainings, true) / positive
+            val harga = dataUji.getHarga(dataTrainings, true) / positive
             val persediaan = dataUji.getPersediaan(dataTrainings, true) / positive
             val promosi = dataUji.getPromosi(dataTrainings, true) / positive
 
-            val result = kategori * persediaan * promosi * positive/size
+            val result = kategori * harga * persediaan * promosi * positive / size
             return df.format(result).toDouble()
         }
     }
@@ -31,10 +32,11 @@ object NaiveBayesUtil {
             val negatives = allFalseCount().toDouble()
 
             val kategori = dataUji.getKategori(dataTrainings, false) / negatives
+            val harga = dataUji.getHarga(dataTrainings, false) / negatives
             val persediaan = dataUji.getPersediaan(dataTrainings, false) / negatives
             val promosi = dataUji.getPromosi(dataTrainings, false) / negatives
 
-            val result = kategori * persediaan * promosi * negatives/size
+            val result = kategori * harga * persediaan * promosi * negatives / size
             return df.format(result).toDouble()
         }
     }
@@ -43,8 +45,8 @@ object NaiveBayesUtil {
         positive: Double,
         negative: Double
     ): Boolean {
-       /* val normalPositive = positive/positive+negative
-        val normalNegative = negative/positive+negative*/
+        /* val normalPositive = positive/positive+negative
+         val normalNegative = negative/positive+negative*/
 
         return positive > negative
     }

@@ -47,6 +47,7 @@ object DataTrainingPresentation : BasePresentation() {
                 val result = DataTraining(
                     nama = dataUji.nama,
                     kategori = dataUji.kategori,
+                    harga = dataUji.harga,
                     persediaan = dataUji.persediaan,
                     isPromosi = dataUji.isPromosi,
                     isMemenuhiTarget = salesPrediction.result,

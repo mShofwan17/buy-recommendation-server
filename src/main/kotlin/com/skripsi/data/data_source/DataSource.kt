@@ -8,6 +8,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Makanan",
+                harga = "Rendah",
                 persediaan = "Banyak",
                 isPromosi = true,
                 isMemenuhiTarget = true
@@ -16,6 +17,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Minuman",
+                harga = "Standar",
                 persediaan = "Banyak",
                 isPromosi = false,
                 isMemenuhiTarget = false
@@ -24,6 +26,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Kebutuhan",
+                harga = "Tinggi",
                 persediaan = "Sedikit",
                 isPromosi = false,
                 isMemenuhiTarget = true
@@ -32,14 +35,16 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Kosmetik",
+                harga = "Rendah",
                 persediaan = "Sedikit",
                 isPromosi = false,
-                isMemenuhiTarget = false
+                isMemenuhiTarget = true
             )
         )
         items.add(
             DataTraining(
                 kategori = "Kebutuhan",
+                harga = "Tinggi",
                 persediaan = "Sedikit",
                 isPromosi = false,
                 isMemenuhiTarget = false
@@ -48,6 +53,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Kosmetik",
+                harga = "Standar",
                 persediaan = "Banyak",
                 isPromosi = true,
                 isMemenuhiTarget = false
@@ -56,6 +62,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Minuman",
+                harga = "Rendah",
                 persediaan = "Banyak",
                 isPromosi = true,
                 isMemenuhiTarget = true
@@ -64,6 +71,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Kosmetik",
+                harga = "Tinggi",
                 persediaan = "Sedikit",
                 isPromosi = true,
                 isMemenuhiTarget = false
@@ -72,6 +80,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Makanan",
+                harga = "Standar",
                 persediaan = "Sedikit",
                 isPromosi = false,
                 isMemenuhiTarget = true
@@ -80,6 +89,7 @@ object DataSource {
         items.add(
             DataTraining(
                 kategori = "Makanan",
+                harga = "Standar",
                 persediaan = "Banyak",
                 isPromosi = false,
                 isMemenuhiTarget = false
