@@ -6,5 +6,5 @@ object ItemPenjualan : Table("itempenjualan") {
     val kodeBarang = varchar("kode_barang",255)
     val namaBarang = varchar("nama_barang",255)
     val qty = double("qty")
-    val harga = double("harga")
+    val harga = double("subtotal")
 }
