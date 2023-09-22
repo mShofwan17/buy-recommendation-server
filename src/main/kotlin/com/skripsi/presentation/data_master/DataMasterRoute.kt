@@ -6,6 +6,8 @@ fun Route.dataMasterRouting() {
     route("master/") {
        DataMasterPresentation.apply {
            getPenjualan(this@route)
+           getKategori(this@route)
+           getGolongan(this@route)
        }
     }
 }

@@ -1,4 +1,4 @@
-package com.skripsi.domain.usecases
+package com.skripsi.domain.usecases.master
 
 import com.skripsi.data.repositories.data_master.DataMasterRepository
 import com.skripsi.domain.models.master.Penjualan

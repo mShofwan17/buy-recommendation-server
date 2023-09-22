@@ -1,4 +1,4 @@
-package com.skripsi.domain.models
+package com.skripsi.domain.models.master
 
 import kotlinx.serialization.Serializable
 

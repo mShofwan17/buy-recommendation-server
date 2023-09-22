@@ -1,5 +1,8 @@
 package com.skripsi.domain.models.master
 
-data class Kategori(
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Golongan(
     val name: String
 )
