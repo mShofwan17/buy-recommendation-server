@@ -11,6 +11,7 @@ import com.skripsi.domain.usecases.master.GetListPenjualanUseCase
 import com.skripsi.domain.usecases.GetSalesPredictionUseCase
 import com.skripsi.domain.usecases.master.GetListGolonganUseCase
 import com.skripsi.domain.usecases.master.GetListKategoriUseCase
+import com.skripsi.domain.usecases.master.GetListPembelianUseCase
 import org.koin.dsl.module
 
 val databaseModule = module {
@@ -27,6 +28,7 @@ val useCaseModule = module {
     single { GetListDataTrainingUseCase(get()) }
     single { GetSalesPredictionUseCase(get()) }
 
+    single { GetListPembelianUseCase(get()) }
     single { GetListPenjualanUseCase(get()) }
     single { GetListKategoriUseCase(get()) }
     single { GetListGolonganUseCase(get()) }

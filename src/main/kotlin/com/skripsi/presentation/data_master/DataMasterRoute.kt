@@ -8,6 +8,7 @@ fun Route.dataMasterRouting() {
            getPenjualan(this@route)
            getKategori(this@route)
            getGolongan(this@route)
+           getPembelian(this@route)
        }
     }
 }
