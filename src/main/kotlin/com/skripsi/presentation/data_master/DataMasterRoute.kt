@@ -9,6 +9,10 @@ fun Route.dataMasterRouting() {
            getKategori(this@route)
            getGolongan(this@route)
            getPembelian(this@route)
+           getBarang(this@route)
+           getDataMentah(this@route)
+           getDataTrainingPembelian(this@route)
+           getSalesPrediction(this@route)
        }
     }
 }

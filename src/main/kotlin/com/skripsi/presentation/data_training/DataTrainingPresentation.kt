@@ -1,19 +1,12 @@
 package com.skripsi.presentation.data_training
 
 import com.skripsi.base.BasePresentation
-import com.skripsi.base.BaseResponse
-import com.skripsi.data.entities.DataTraining
-import com.skripsi.domain.models.DataUji
 import com.skripsi.domain.usecases.GetListDataTrainingUseCase
 import com.skripsi.domain.usecases.GetSalesPredictionUseCase
-import com.skripsi.utils.hasilPrediksi
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.koin.java.KoinJavaComponent.inject
-import org.koin.ktor.ext.inject
 
 object DataTrainingPresentation : BasePresentation() {
     private val getListDataTrainingUseCase: GetListDataTrainingUseCase
@@ -38,7 +31,7 @@ object DataTrainingPresentation : BasePresentation() {
 
     fun getSalesPrediction(
         route: Route
-    ) {
+    ) {/*
         route.post("/calculate") {
             responseResult { httpCode ->
                 val dataUji = call.receive<DataUji>()
@@ -59,6 +52,6 @@ object DataTrainingPresentation : BasePresentation() {
                     status = httpCode
                 )
             }
-        }
+        }*/
     }
 }

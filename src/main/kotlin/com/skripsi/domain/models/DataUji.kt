@@ -12,7 +12,7 @@ data class DataUji(
     val persediaan: String,
     val isPromosi: Boolean,
 ) {
-    fun getKategori(
+   /* fun getKategori(
         items: List<DataTraining>,
         isPositive: Boolean
     ): Double {
@@ -50,5 +50,5 @@ data class DataUji(
             isPromosi = this.isPromosi,
             isPositive = isPositive
         ).size.toDouble()
-    }
+    }*/
 }

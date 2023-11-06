@@ -10,6 +10,6 @@ class GetListPenjualanUseCase(
         return repository.getPenjualan()
             .mapIndexed { index, penjualan ->
                 penjualan.copy(id = index + 1)
-            }
+            }.take(1000)
     }
 }

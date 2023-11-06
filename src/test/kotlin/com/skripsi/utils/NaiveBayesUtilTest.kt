@@ -4,7 +4,7 @@ import com.skripsi.data.data_source.DataSource
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class NaiveBayesUtilTest {
+class NaiveBayesUtilTest {/*
     private val items = DataSource.dataTrainingSample()
 
     @Test
@@ -24,7 +24,7 @@ class NaiveBayesUtilTest {
             expected = 6,
             actual = result
         )
-    }
+    }*/
 /*
     @Test
     fun `test kategori makanan memenuhi target`() = assertEquals(
