@@ -10,12 +10,12 @@ abstract class BasePresentation {
     private val dataIsNull = "No Data"
 
     suspend fun PipelineContext<Unit, ApplicationCall>.responseResult(
-        successResult: suspend (httpCode : HttpStatusCode) -> Unit
-    ){
+        successResult: suspend (httpCode: HttpStatusCode) -> Unit
+    ) {
         try {
             _httpCode = HttpStatusCode.OK
             successResult.invoke(HttpStatusCode.OK)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             _httpCode = HttpStatusCode.NotFound
             call.respond(
                 status = HttpStatusCode.NotFound,
@@ -44,7 +44,7 @@ abstract class BasePresentation {
 
     private fun onError(
         exceptionMsg: String? = null
-    ): BaseResponse<String?>{
+    ): BaseResponse<String?> {
         return BaseResponse(
             statusCode = _httpCode.value,
             message = _httpCode.description,
@@ -54,7 +54,10 @@ abstract class BasePresentation {
 
     fun <T> onSuccess(result: T) = BaseResponse(
         statusCode = _httpCode.value,
-        message = _httpCode.description,
+        message = when (result) {
+            is List<*> -> _httpCode.description + " with Record : ${result.count()}"
+            else -> _httpCode.description
+        },
         result
     )
 
@@ -65,7 +68,7 @@ abstract class BasePresentation {
         )
     }
 
-    suspend fun ApplicationCall.failedUpdatedData(id:Int?){
+    suspend fun ApplicationCall.failedUpdatedData(id: Int?) {
         _httpCode = HttpStatusCode.BadRequest
         respond(
             message = onError(exceptionMsg = "Gagal Update Data : $id"),

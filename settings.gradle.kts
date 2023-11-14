@@ -1,1 +1,1 @@
-rootProject.name = "com.example.sales-prediction-server"
+rootProject.name = "me.skripsi.buy-recommended-server"

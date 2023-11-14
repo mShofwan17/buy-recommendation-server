@@ -1,51 +1,29 @@
 package com.skripsi.utils
 
-import com.skripsi.data.entities.DataTraining
+import com.skripsi.domain.models.DataTraining
 
 fun String.firstUpper(): String = replaceFirstChar {
     it.uppercase()
 }
-fun Boolean.hasilPrediksi() : String{
-    return if (this) "Memenuhi Target"
-    else "Tidak Memenuhi Target"
+fun Boolean.recommendation(): String {
+    return if (this) "Rekomendasi Beli"
+    else "Rekomendasi Tidak Beli"
 }
 fun List<DataTraining>.allTrue(): List<DataTraining> =
-    filter { it.isMemenuhiTarget == true }
-
+    filter { it.pembelian }
 fun List<DataTraining>.allFalse(): List<DataTraining> =
-    filter { it.isMemenuhiTarget == false }
-
+    filter { !it.pembelian }
 fun List<DataTraining>.allTrueCount(): Int = allTrue().size
 fun List<DataTraining>.allFalseCount(): Int = allFalse().size
-
-fun List<DataTraining>.kategoriMakanan(isPositive: Boolean): List<DataTraining> =
+fun List<DataTraining>.kategori(isPositive: Boolean, kategori: String): List<DataTraining> =
     (if (isPositive) allTrue() else allFalse())
-        .filter { it.kategori == "makanan".firstUpper() }
-
-fun List<DataTraining>.kategoriMinuman(isPositive: Boolean): List<DataTraining> =
+        .filter { it.kategori == kategori.firstUpper() }
+fun List<DataTraining>.stok(isPositive: Boolean, stok: String): List<DataTraining> =
     (if (isPositive) allTrue() else allFalse())
-        .filter { it.kategori == "minuman".firstUpper() }
-
-fun List<DataTraining>.kategoriKebutuhan(isPositive: Boolean): List<DataTraining> =
+        .filter { it.stok == stok.firstUpper() }
+fun List<DataTraining>.diskon(isPositive: Boolean, isDiskon: Boolean): List<DataTraining> =
     (if (isPositive) allTrue() else allFalse())
-        .filter { it.kategori == "kebutuhan".firstUpper() }
-
-fun List<DataTraining>.kategoriKosmetik(isPositive: Boolean): List<DataTraining> =
+        .filter { it.isDiskon == isDiskon }
+fun List<DataTraining>.penjualan(isPositive: Boolean, penjualan: String): List<DataTraining> =
     (if (isPositive) allTrue() else allFalse())
-        .filter { it.kategori == "kosmetik".firstUpper() }
-
-fun List<DataTraining>.persediaanBanyak(isPositive: Boolean): List<DataTraining> =
-    (if (isPositive) allTrue() else allFalse())
-        .filter { it.persediaan == "banyak".firstUpper() }
-
-fun List<DataTraining>.persediaanSedikit(isPositive: Boolean): List<DataTraining> =
-    (if (isPositive) allTrue() else allFalse())
-        .filter { it.persediaan == "sedikit".firstUpper() }
-
-fun List<DataTraining>.promosiTrue(isPositive: Boolean): List<DataTraining> =
-    (if (isPositive) allTrue() else allFalse())
-        .filter { it.isPromosi }
-
-fun List<DataTraining>.promosiFalse(isPositive: Boolean): List<DataTraining> =
-    (if (isPositive) allTrue() else allFalse())
-        .filter { !it.isPromosi }
+        .filter { it.penjualan == penjualan.firstUpper() }
