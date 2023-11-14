@@ -9,6 +9,6 @@ interface DataMasterRepository {
     suspend fun getGolongan(): List<Golongan>
 
     suspend fun getBarang(): List<Barang>
-    suspend fun getDataMentah(): List<DataMentah>
-    suspend fun getDataRunBlocking(): List<DataMentah>
+    suspend fun getDataMentah(): List<DataTransaksi>
+    suspend fun getDataRunBlocking(): List<DataTransaksi>
 }

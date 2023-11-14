@@ -1,15 +1,15 @@
 package com.skripsi.utils
 
-import com.skripsi.domain.models.DataTrainingPembelian
-import com.skripsi.domain.models.DataUjiPembelian
+import com.skripsi.domain.models.DataTraining
+import com.skripsi.domain.models.DataUji
 import java.text.DecimalFormat
 
 object NaiveBayesUtil {
     private val df = DecimalFormat("#.####")
 
     fun calculatePositive(
-        dataUji: DataUjiPembelian,
-        dataTrainings: List<DataTrainingPembelian>,
+        dataUji: DataUji,
+        dataTrainings: List<DataTraining>,
     ): Double {
         dataTrainings.apply {
             val positive = allTrueCount().toDouble()
@@ -26,8 +26,8 @@ object NaiveBayesUtil {
     }
 
     fun calculateNegative(
-        dataUji: DataUjiPembelian,
-        dataTrainings: List<DataTrainingPembelian>,
+        dataUji: DataUji,
+        dataTrainings: List<DataTraining>,
     ): Double {
         dataTrainings.apply {
             val negative = allFalseCount().toDouble()
@@ -47,8 +47,8 @@ object NaiveBayesUtil {
         positive: Double,
         negative: Double
     ): Boolean {
-        val normalPositive = positive / positive + negative
-        val normalNegative = negative / positive + negative
+        //val normalPositive = positive / positive + negative
+        //val normalNegative = negative / positive + negative
 
         return positive >= negative
     }

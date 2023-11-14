@@ -3,7 +3,7 @@ package com.skripsi.domain.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DataUjiRaw(
+data class DataUjiTransaksi(
     val kodeBarang: String = "",
     val namaBarang: String = "",
     val kategori: String = "",

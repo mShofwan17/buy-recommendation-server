@@ -7,11 +7,8 @@ import com.skripsi.domain.models.master.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import org.jetbrains.exposed.sql.innerJoin
-import org.jetbrains.exposed.sql.leftJoin
-import org.jetbrains.exposed.sql.rightJoin
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
-import kotlin.math.log
 
 class DataMasterRepositoryImpl(
     private val db: DatabaseFactory
@@ -119,7 +116,7 @@ class DataMasterRepositoryImpl(
         }
     }
 
-    override suspend fun getDataMentah(): List<DataMentah> {
+    override suspend fun getDataMentah(): List<DataTransaksi> {
         return transaction(db.dbInstance) {
             ItemBarangTable
                 .innerJoin(StokTable, { kode }, { kode })
@@ -127,7 +124,7 @@ class DataMasterRepositoryImpl(
                 .innerJoin(ItemPembelianTable, { kode }, { kodeBarang })
                 .selectAll()
                 .map { resultRow ->
-                    DataMentah(
+                    DataTransaksi(
                         kodeBarang = resultRow[kode],
                         namaBarang = resultRow[ItemBarangTable.nama],
                         stok = resultRow[StokTable.stok],
@@ -139,7 +136,7 @@ class DataMasterRepositoryImpl(
 
     }
 
-    override suspend fun getDataRunBlocking(): List<DataMentah> = coroutineScope {
+    override suspend fun getDataRunBlocking(): List<DataTransaksi> = coroutineScope {
         return@coroutineScope async {
             transaction(db.dbInstance) {
                 ItemBarangTable
@@ -147,7 +144,7 @@ class DataMasterRepositoryImpl(
                     .innerJoin(IsDiskonTable, { kode }, { kode })
                     .selectAll()
                     .map { resultRow ->
-                        DataMentah(
+                        DataTransaksi(
                             kodeBarang = resultRow[kode],
                             namaBarang = resultRow[ItemBarangTable.nama],
                             golongan = resultRow[ItemBarangTable.kategori],

@@ -3,7 +3,7 @@ package com.skripsi.domain.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DataTrainingPembelian(
+data class DataTraining(
     val kodeBarang: String = "",
     val namaBarang: String = "",
     val kategori: String = "",

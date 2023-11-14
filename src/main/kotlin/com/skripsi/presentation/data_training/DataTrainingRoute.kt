@@ -6,7 +6,7 @@ fun Route.dataTrainingRouting() {
     route("trainings") {
         DataTrainingPresentation.apply {
             getDataTraining(this@route)
-            getSalesPrediction(this@route)
+            getBuyRecommended(this@route)
         }
     }
 }

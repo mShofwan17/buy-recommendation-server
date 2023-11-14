@@ -3,7 +3,7 @@ package com.skripsi.domain.models.master
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DataMentah(
+data class DataTransaksi(
     val kodeBarang: String,
     val namaBarang: String,
     val golongan: String = "",

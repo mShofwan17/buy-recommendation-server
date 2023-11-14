@@ -1,16 +1,16 @@
 package com.skripsi.domain.usecases
 
 import com.skripsi.data.repositories.data_master.DataMasterRepository
-import com.skripsi.domain.models.master.DataMentah
+import com.skripsi.domain.models.master.DataTransaksi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
-class GetListDataMentahUseCase(
+class GetListDataTransaksiUseCase(
     private val repository: DataMasterRepository
 ) {
-    suspend operator fun invoke(): List<DataMentah> = runBlocking  {
+    suspend operator fun invoke(): List<DataTransaksi> = runBlocking  {
         val penjualan = async { repository.getPenjualan().map {
-            DataMentah(
+            DataTransaksi(
                 kodeBarang = it.kodeBarang,
                 namaBarang = it.namaBarang,
                 penjualan = it.qty,
@@ -18,7 +18,7 @@ class GetListDataMentahUseCase(
         } }
         val pembelian = async {
             repository.getPembelian().map {
-                DataMentah(
+                DataTransaksi(
                     kodeBarang = it.kodeBarang,
                     namaBarang = it.namaBarang,
                     pembelian = it.qty,
@@ -32,8 +32,8 @@ class GetListDataMentahUseCase(
     }
 
 
-    private fun mergeData(list: List<DataMentah>): List<DataMentah> {
-        val mergedDataMap = mutableMapOf<String, DataMentah>()
+    private fun mergeData(list: List<DataTransaksi>): List<DataTransaksi> {
+        val mergedDataMap = mutableMapOf<String, DataTransaksi>()
         for (data in list) {
             val existingData = mergedDataMap[data.kodeBarang]
             if (existingData == null) {
@@ -41,7 +41,7 @@ class GetListDataMentahUseCase(
                 mergedDataMap[data.kodeBarang] = data
             } else {
                 // Jika ID sudah ada, gabungkan nilai penjualan dan pembelian
-                val mergedData = DataMentah(
+                val mergedData = DataTransaksi(
                     kodeBarang = data.kodeBarang,
                     namaBarang = data.namaBarang,
                     golongan = existingData.golongan,
