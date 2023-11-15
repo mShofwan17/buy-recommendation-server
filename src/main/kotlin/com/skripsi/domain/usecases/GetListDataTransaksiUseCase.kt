@@ -57,8 +57,6 @@ class GetListDataTransaksiUseCase(
             }
         }
 
-        println("Stok: " +stok.await())
-
         return@runBlocking mergeData(
             barang.await() +
                 stok.await() +

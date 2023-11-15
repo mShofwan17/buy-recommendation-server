@@ -43,30 +43,34 @@ object DataTrainingPresentation : BasePresentation() {
     ) {
         route.post("/calculate") {
             responseResult { httpCode ->
-                val dataUji = call.receive<DataUjiTransaksi>()
-                val buyRecommendation = calculateBuyRecommendedUseCase(
-                    getListDataTrainingUseCase(getListDataTransaksiUseCase()),
-                    DataUji(
+                val dataUjis = call.receive<List<DataUjiTransaksi>>()
+                val dataTraining = getListDataTrainingUseCase(getListDataTransaksiUseCase())
+                val results = dataUjis.map { dataUji ->
+                    val buyRecommendation = calculateBuyRecommendedUseCase(
+                        dataTraining,
+                        DataUji(
+                            kodeBarang = dataUji.kodeBarang,
+                            namaBarang = dataUji.namaBarang,
+                            kategori = dataUji.kategori,
+                            stok = dataUji.stok.labeledStok(),
+                            isDiskon = dataUji.isDiskon,
+                            penjualan = dataUji.penjualan.labeledPenjualan()
+                        )
+                    )
+
+                    ResultBuyRecommendation(
                         kodeBarang = dataUji.kodeBarang,
                         namaBarang = dataUji.namaBarang,
                         kategori = dataUji.kategori,
-                        stok = dataUji.stok.labeledStok(),
+                        stok = dataUji.stok,
                         isDiskon = dataUji.isDiskon,
-                        penjualan = dataUji.penjualan.labeledPenjualan()
+                        penjualan = dataUji.penjualan,
+                        recommendation = buyRecommendation,
                     )
-                )
+                }
 
-                val result = ResultBuyRecommendation(
-                    kodeBarang = dataUji.kodeBarang,
-                    namaBarang = dataUji.namaBarang,
-                    kategori = dataUji.kategori,
-                    stok = dataUji.stok,
-                    isDiskon = dataUji.isDiskon,
-                    penjualan = dataUji.penjualan,
-                    recommendation = buyRecommendation,
-                )
                 call.respond(
-                    message = onSuccess(result),
+                    message = onSuccess(results),
                     status = httpCode
                 )
             }

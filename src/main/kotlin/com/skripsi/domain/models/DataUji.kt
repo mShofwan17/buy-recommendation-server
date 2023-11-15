@@ -1,9 +1,6 @@
 package com.skripsi.domain.models
 
-import com.skripsi.utils.diskon
-import com.skripsi.utils.kategori
-import com.skripsi.utils.penjualan
-import com.skripsi.utils.stok
+import com.skripsi.utils.*
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,42 +13,34 @@ data class DataUji(
     val penjualan: String = "", //Banyak, Cukup, Sedikit
 ) {
     fun getKategori(
-        items: List<DataTraining>,
-        isPositive: Boolean
+        items: List<DataTraining>
     ): Double {
         return items.kategori(
-            kategori = this.kategori,
-            isPositive = isPositive
-        ).size.toDouble()
+            kategori = this.kategori
+        ).count().toDouble().decimalFormat()
     }
 
     fun getStok(
-        items: List<DataTraining>,
-        isPositive: Boolean
+        items: List<DataTraining>
     ): Double {
         return items.stok(
-            stok = this.stok,
-            isPositive = isPositive
-        ).size.toDouble()
+            stok = this.stok
+        ).size.toDouble().decimalFormat()
     }
 
     fun getDiskon(
-        items: List<DataTraining>,
-        isPositive: Boolean
+        items: List<DataTraining>
     ): Double {
         return items.diskon(
-            isDiskon = this.isDiskon,
-            isPositive = isPositive
-        ).size.toDouble()
+            isDiskon = this.isDiskon
+        ).size.toDouble().decimalFormat()
     }
 
     fun getPenjualan(
-        items: List<DataTraining>,
-        isPositive: Boolean
+        items: List<DataTraining>
     ): Double {
         return items.penjualan(
-            penjualan = this.penjualan,
-            isPositive = isPositive
-        ).size.toDouble()
+            penjualan = this.penjualan
+        ).size.toDouble().decimalFormat()
     }
 }
