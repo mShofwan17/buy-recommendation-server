@@ -5,7 +5,7 @@ import com.skripsi.domain.models.DataUji
 import java.text.DecimalFormat
 
 object NaiveBayesUtil {
-    private val df = DecimalFormat("#.####")
+    private val df = DecimalFormat("#.###")
 
     fun calculatePositive(
         dataUji: DataUji,
@@ -47,9 +47,6 @@ object NaiveBayesUtil {
         positive: Double,
         negative: Double
     ): Boolean {
-        //val normalPositive = positive / positive + negative
-        //val normalNegative = negative / positive + negative
-
         return positive >= negative
     }
 }

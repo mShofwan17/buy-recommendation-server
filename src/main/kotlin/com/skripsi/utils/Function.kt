@@ -1,25 +1,24 @@
 package com.skripsi.utils
 
 
-fun labeledStok(stok: Int): String {
+fun Int.labeledStok(): String {
     return when {
-        stok <= 30 -> "Sedikit"
-        stok in 31..100 -> "Standar"
+        this <= 30 -> "Sedikit"
+        this in 31..100 -> "Standar"
         else -> "Banyak"
     }
 }
 
-fun labeledDiskon(diskon: Short): Boolean{
-    return diskon.toInt() == 1
+fun Int.labeledDiskon(): Boolean{
+    return this == 1
 }
-fun labeledPenjualan(penjualan: Int): String {
+fun Int.labeledPenjualan(): String {
     return when {
-        penjualan <= 50 -> "Sedikit"
-        penjualan in 51..100 -> "Cukup"
+        this <= 50 -> "Sedikit"
+        this in 51..100 -> "Standar"
         else -> "Banyak"
     }
 }
-
-fun classPembelian(pembelian: Int): Boolean {
-    return pembelian > 0
+fun Int.classPembelian(): Boolean {
+    return this > 0
 }

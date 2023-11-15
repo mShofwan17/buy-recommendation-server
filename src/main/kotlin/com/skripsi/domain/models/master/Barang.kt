@@ -5,5 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Barang(
     val kodeBarang: String,
-    val name: String
+    val name: String,
+    val kategori: String
 )

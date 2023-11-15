@@ -4,8 +4,9 @@ import com.skripsi.data.data_source.DatabaseFactory
 import com.skripsi.data.entities.*
 import com.skripsi.data.entities.ItemBarangTable.kode
 import com.skripsi.domain.models.master.*
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import com.skripsi.utils.asPembelian
+import com.skripsi.utils.asPenjualan
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.innerJoin
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -14,6 +15,8 @@ class DataMasterRepositoryImpl(
     private val db: DatabaseFactory
 ) : DataMasterRepository {
 
+    override val dbInstance: Database?
+        get() = db.dbInstance
     override suspend fun getPenjualan(): List<Penjualan> {
         return getRawPenjualan().groupBy { it.kodeBarang }
             .map { (kodeBarang, items) ->
@@ -46,37 +49,40 @@ class DataMasterRepositoryImpl(
             }
     }
 
-    override suspend fun getKategori(): List<Kategori> {
-        GolonganTable.apply {
-            return transaction(db.dbInstance) {
-                selectAll().map { row ->
-                    Kategori(
-                        name = row[kategori]
-                    )
-                }
-            }
-        }
-    }
-
-    override suspend fun getGolongan(): List<Golongan> {
-        GolonganTable.apply {
-            return transaction(db.dbInstance) {
-                selectAll().map { row ->
-                    Golongan(
-                        name = row[kode]
-                    )
-                }
-            }
-        }
-    }
-
     override suspend fun getBarang(): List<Barang> {
         ItemBarangTable.apply {
-            return transaction(db.dbInstance) {
+            return transaction(dbInstance) {
                 selectAll().map { row ->
                     Barang(
                         kodeBarang = row[kode],
-                        name = row[nama]
+                        name = row[nama],
+                        kategori = row[kategori]
+                    )
+                }
+            }
+        }
+    }
+
+    override suspend fun getStok(): List<Stok> {
+        StokTable.apply {
+            return transaction(dbInstance) {
+                selectAll().map { row ->
+                    Stok(
+                        kode = row[kode],
+                        stok = row[stok]
+                    )
+                }
+            }
+        }
+    }
+
+    override suspend fun getBarangDiskon(): List<BarangDiskon> {
+        IsDiskonTable.apply {
+            return transaction(db.dbInstance) {
+                selectAll().map { row ->
+                    BarangDiskon(
+                        kode = row[kode],
+                        isDiskon = row[isDiskon]
                     )
                 }
             }
@@ -86,8 +92,8 @@ class DataMasterRepositoryImpl(
 
     private fun getRawPenjualan(): List<Penjualan> {
         ItemPenjualanTable.apply {
-            return transaction(db.dbInstance) {
-                selectAll().map { row ->
+            return transaction(dbInstance) {
+                selectAll().asPenjualan { row ->
                     Penjualan(
                         id = 0,
                         kodeBarang = row[kodeBarang],
@@ -102,8 +108,8 @@ class DataMasterRepositoryImpl(
 
     private fun getRawPembelian(): List<Pembelian> {
         ItemPembelianTable.apply {
-            return transaction(db.dbInstance) {
-                selectAll().limit(n = 10000).map { row ->
+            return transaction(dbInstance) {
+                selectAll().asPembelian { row ->
                     Pembelian(
                         id = 0,
                         kodeBarang = row[kodeBarang],
@@ -116,43 +122,21 @@ class DataMasterRepositoryImpl(
         }
     }
 
-    override suspend fun getDataMentah(): List<DataTransaksi> {
-        return transaction(db.dbInstance) {
+    override suspend fun getDataTransaksi(): List<DataTransaksi> {
+        return transaction(dbInstance) {
             ItemBarangTable
                 .innerJoin(StokTable, { kode }, { kode })
-                .innerJoin(ItemPenjualanTable, { kode }, { kodeBarang })
-                .innerJoin(ItemPembelianTable, { kode }, { kodeBarang })
+                .innerJoin(IsDiskonTable, { kode }, { kode })
                 .selectAll()
                 .map { resultRow ->
                     DataTransaksi(
                         kodeBarang = resultRow[kode],
                         namaBarang = resultRow[ItemBarangTable.nama],
+                        golongan = resultRow[ItemBarangTable.kategori],
                         stok = resultRow[StokTable.stok],
-                        penjualan = resultRow[ItemPenjualanTable.qty],
-                        pembelian = resultRow[ItemPembelianTable.qty]
+                        isDiskon = 0//resultRow[IsDiskonTable.isDiskon]
                     )
                 }
         }
-
-    }
-
-    override suspend fun getDataRunBlocking(): List<DataTransaksi> = coroutineScope {
-        return@coroutineScope async {
-            transaction(db.dbInstance) {
-                ItemBarangTable
-                    .innerJoin(StokTable, { kode }, { kode })
-                    .innerJoin(IsDiskonTable, { kode }, { kode })
-                    .selectAll()
-                    .map { resultRow ->
-                        DataTransaksi(
-                            kodeBarang = resultRow[kode],
-                            namaBarang = resultRow[ItemBarangTable.nama],
-                            golongan = resultRow[ItemBarangTable.kategori],
-                            stok = resultRow[StokTable.stok],
-                            isDiskon = resultRow[IsDiskonTable.isDiskon]
-                        )
-                    }
-            }
-        }.await()
     }
 }

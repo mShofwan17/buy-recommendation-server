@@ -6,7 +6,7 @@ class DatabaseFactory {
     private var _database : Database ?= null
     val dbInstance get() = _database
     init {
-        val url = "jdbc:mysql://localhost:3306/db_penjualan"
+        val url = "jdbc:mysql://localhost:3306/db_minimarket"
         val driverName = "com.mysql.cj.jdbc.Driver"
         _database = Database.connect(
             url,

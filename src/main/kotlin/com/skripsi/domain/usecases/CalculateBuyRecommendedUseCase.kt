@@ -6,7 +6,7 @@ import com.skripsi.domain.models.DataUji
 import com.skripsi.utils.NaiveBayesUtil
 import com.skripsi.utils.recommendation
 
-class GetBuyRecommendedUseCase {
+class CalculateBuyRecommendedUseCase {
     operator fun invoke(
         dataTraining: List<DataTraining>,
         dataUji: DataUji

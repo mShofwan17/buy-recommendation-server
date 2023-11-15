@@ -7,7 +7,7 @@ import com.skripsi.utils.labeledDiskon
 import com.skripsi.utils.labeledPenjualan
 import com.skripsi.utils.labeledStok
 
-class GetListDataTrainingPenjualanUseCase {
+class GetListDataTrainingUseCase {
     operator fun invoke(
         dataTransaksi: List<DataTransaksi>
     ): List<DataTraining> {
@@ -16,10 +16,10 @@ class GetListDataTrainingPenjualanUseCase {
                 kodeBarang = it.kodeBarang,
                 namaBarang = it.namaBarang,
                 kategori = it.golongan,
-                isDiskon = labeledDiskon(it.isDiskon),
-                stok = labeledStok(it.stok),
-                penjualan = labeledPenjualan(it.penjualan.toInt()),
-                pembelian = classPembelian(it.pembelian.toInt())
+                isDiskon = it.isDiskon.labeledDiskon(),
+                stok = it.stok.labeledStok(),
+                penjualan = it.penjualan.toInt().labeledPenjualan(),
+                pembelian = it.pembelian.toInt().classPembelian()
             )
         }
     }
