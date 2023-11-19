@@ -60,11 +60,14 @@ object DataMasterPresentation : BasePresentation() {
         route.get("data_transaksi") {
             responseResult {
                 call.respond(
-                    message = onSuccess(getListDataTransaksiUseCase()),
+                    message = onSuccess(
+                        getListDataTransaksiUseCase().map { dataTransaksi ->
+                            dataTransaksi.toDataTransaksiBool()
+                        }
+                    ),
                     status = it
                 )
             }
         }
     }
-
 }

@@ -20,7 +20,7 @@ fun List<DataTraining>.allFalse(): List<DataTraining> =
 fun List<DataTraining>.allTrueCount(): Int = allTrue().size
 fun List<DataTraining>.allFalseCount(): Int = allFalse().size
 fun List<DataTraining>.kategori(kategori: String): List<DataTraining> =
-    this.filter { it.kategori == kategori }
+    this.filter { it.kategori == kategori.uppercase() }
 
 fun List<DataTraining>.stok(stok: String): List<DataTraining> =
     this.filter { it.stok == stok }
